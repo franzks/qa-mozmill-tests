@@ -11,37 +11,42 @@ var EventUtils = {};
 Cu.import('resource://mozmill/stdlib/EventUtils.js', EventUtils);
 
 /**
- * Click the specified tree cell
- *
- * @param {MozMillController} controller
- *        MozMillController of the browser window to operate on
- * @param {tree} tree
- *        Tree to operate on
- * @param {number } rowIndex
- *        Index of the row
- * @param {number} columnIndex
- *        Index of the column
- * @param {object} eventDetails
- *        Details about the mouse event
+ * widgets class
  */
-function clickTreeCell(controller, tree, rowIndex, columnIndex, eventDetails) {
-  tree = tree.getNode();
+widgets.prototype = {
+  /**
+   * Click the specified tree cell
+   *
+   * @param {MozMillController} controller
+   *        MozMillController of the browser window to operate on
+   * @param {tree} tree
+   *        Tree to operate on
+   * @param {number } rowIndex
+   *        Index of the row
+   * @param {number} columnIndex
+   *        Index of the column
+   * @param {object} eventDetails
+   *        Details about the mouse event
+   */
+  clickTreeCell : function(controller, tree, rowIndex, columnIndex, eventDetails) {
+    tree = tree.getNode();
 
-  var selection = tree.view.selection;
-  selection.select(rowIndex);
-  tree.treeBoxObject.ensureRowIsVisible(rowIndex);
+    var selection = tree.view.selection;
+    selection.select(rowIndex);
+    tree.treeBoxObject.ensureRowIsVisible(rowIndex);
 
-  // get cell coordinates
-  var x = {}, y = {}, width = {}, height = {};
-  var column = tree.columns[columnIndex];
-  tree.treeBoxObject.getCoordsForCellItem(rowIndex, column, "text",
-                                           x, y, width, height);
+    // get cell coordinates
+    var x = {}, y = {}, width = {}, height = {};
+    var column = tree.columns[columnIndex];
+    tree.treeBoxObject.getCoordsForCellItem(rowIndex, column, "text",
+                                             x, y, width, height);
 
-  controller.sleep(0);
-  EventUtils.synthesizeMouse(tree.body, x.value + 4, y.value + 4,
-                             eventDetails, tree.ownerDocument.defaultView);
-  controller.sleep(0);
+    controller.sleep(0);
+    EventUtils.synthesizeMouse(tree.body, x.value + 4, y.value + 4,
+                               eventDetails, tree.ownerDocument.defaultView);
+    controller.sleep(0);
+  }
 }
 
-// Export of functions
-exports.clickTreeCell = clickTreeCell;
+// Export of class
+exports = widgets;
