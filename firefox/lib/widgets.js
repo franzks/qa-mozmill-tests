@@ -11,14 +11,22 @@ var EventUtils = {};
 Cu.import('resource://mozmill/stdlib/EventUtils.js', EventUtils);
 
 /**
+ * Constructor
+ *
+ * @param {MozMillController} controller
+ *        MozMillController of the widgets
+ */
+function widgets(controller) {
+  this._controller = controller;
+}
+
+/**
  * widgets class
  */
 widgets.prototype = {
   /**
    * Click the specified tree cell
    *
-   * @param {MozMillController} controller
-   *        MozMillController of the browser window to operate on
    * @param {tree} tree
    *        Tree to operate on
    * @param {number } rowIndex
@@ -28,7 +36,7 @@ widgets.prototype = {
    * @param {object} eventDetails
    *        Details about the mouse event
    */
-  clickTreeCell : function(controller, tree, rowIndex, columnIndex, eventDetails) {
+  clickTreeCell : function(tree, rowIndex, columnIndex, eventDetails) {
     tree = tree.getNode();
 
     var selection = tree.view.selection;
@@ -41,12 +49,12 @@ widgets.prototype = {
     tree.treeBoxObject.getCoordsForCellItem(rowIndex, column, "text",
                                              x, y, width, height);
 
-    controller.sleep(0);
+    this._controller.sleep(0);
     EventUtils.synthesizeMouse(tree.body, x.value + 4, y.value + 4,
                                eventDetails, tree.ownerDocument.defaultView);
-    controller.sleep(0);
+    this._controller.sleep(0);
   }
 }
 
 // Export of class
-exports = widgets;
+exports.widgets = widgets;
