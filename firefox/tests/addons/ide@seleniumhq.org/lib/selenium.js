@@ -114,7 +114,8 @@ SeleniumManager.prototype = {
    */
   addCommand : function SeleniumManager_addCommand(spec) {
     var commands = this.getElement({type: "commands"});
-    Widgets.clickTreeCell(this._controller, commands, commands.getNode().view.rowCount - 1, 0, {});
+    var treeHandler = Widgets.treeHandler(this._controller);
+    treeHandler.clickTreeCell(commands, commands.getNode().view.rowCount - 1, 0, {});
 
     if (spec.action !== undefined) {
       var command = this.getElement({type: "command_action"});

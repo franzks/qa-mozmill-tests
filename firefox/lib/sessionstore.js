@@ -182,8 +182,9 @@ aboutSessionRestore.prototype = {
    */
   toggleRestoreState : function aboutSessionRestore_toggleRestoreState(element) {
     var state = this.getRestoreState(element);
+    var treeHandler = new widgets.treeHandler(this._controller);
 
-    widgets.clickTreeCell(this._controller, this.tabList, element.listIndex, 0, {});
+    treeHandler.clickTreeCell(this.tabList, element.listIndex, 0, {});
     this._controller.sleep(0);
 
     assert.notEqual(this.getRestoreState(element), state, "Restore state has been toggled");

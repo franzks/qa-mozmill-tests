@@ -145,7 +145,8 @@ engineManager.prototype = {
     var treeNode = tree.getNode();
 
     if (index < treeNode.view.rowCount) {
-      widgets.clickTreeCell(this._controller, tree, index, 0, {});
+      var treeHandler = new widgets.treeHandler(this._controller);
+      treeHandler.clickTreeCell(tree, index, 0, {});
     }
 
     assert.waitFor(function () {

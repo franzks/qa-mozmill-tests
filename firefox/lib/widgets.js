@@ -16,14 +16,14 @@ Cu.import('resource://mozmill/stdlib/EventUtils.js', EventUtils);
  * @param {MozMillController} controller
  *        MozMillController of the widgets
  */
-function widgets(controller) {
+function treeHandler(controller) {
   this._controller = controller;
 }
 
 /**
- * widgets class
+ * treeHandler class
  */
-widgets.prototype = {
+treeHandler.prototype = {
   /**
    * Click the specified tree cell
    *
@@ -57,4 +57,4 @@ widgets.prototype = {
 }
 
 // Export of class
-exports.widgets = widgets;
+exports.treeHandler = treeHandler;
